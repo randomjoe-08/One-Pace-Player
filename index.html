@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>One Pace Player</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://randomjoe-08.github.io/one-pace-player-api/logo.svg"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="resume-overlay" id="resumeOverlay">
+      <div class="resume-card">
+        <h1 class="resume-title" id="resumeTitle"></h1>
+        <p class="resume-subtitle" id="resumeSubtitle"></p>
+        <button id="resumeBtn" class="resume-btn"></button>
+      </div>
+    </div>
+
+    <div class="player-section">
+      <div class="player-container" id="playerContainer">
+        <video id="player" crossorigin="anonymous">
+          <source src="" type="video/mp4" />
+        </video>
+
+        <!-- Skip Intro -->
+        <!-- <button id="skipIntro">Skip Intro</button> -->
+
+        <div class="controls" id="controls">
+          <div class="progress-row">
+            <input
+              id="progress"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+            />
+            <span id="timeRemaining">--:--</span>
+          </div>
+          <div class="bottom-controls">
+            <div class="left-controls">
+              <button id="playPause" class="control-btn">
+                <img
+                  id="playIcon"
+                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMDAwMCIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yNDAsMTI4YTE1Ljc0LDE1Ljc0LDAsMCwxLTcuNiwxMy41MUw4OC4zMiwyMjkuNjVhMTYsMTYsMCwwLDEtMTYuMi4zQTE1Ljg2LDE1Ljg2LDAsMCwxLDY0LDIxNi4xM1YzOS44N2ExNS44NiwxNS44NiwwLDAsMSw4LjEyLTEzLjgyLDE2LDE2LDAsMCwxLDE2LjIuM0wyMzIuNCwxMTQuNDlBMTUuNzQsMTUuNzQsMCwwLDEsMjQwLDEyOFoiPjwvcGF0aD48L3N2Zz4="
+                  alt="Play"
+                />
+                <img
+                  id="pauseIcon"
+                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMDAwMCIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMTYsNDhWMjA4YTE2LDE2LDAsMCwxLTE2LDE2SDE2MGExNiwxNiwwLDAsMS0xNi0xNlY0OGExNiwxNiwwLDAsMSwxNi0xNmg0MEExNiwxNiwwLDAsMSwyMTYsNDhaTTk2LDMySDU2QTE2LDE2LDAsMCwwLDQwLDQ4VjIwOGExNiwxNiwwLDAsMCwxNiwxNkg5NmExNiwxNiwwLDAsMCwxNi0xNlY0OEExNiwxNiwwLDAsMCw5NiwzMloiPjwvcGF0aD48L3N2Zz4="
+                  alt="Pause"
+                  style="display: none"
+                />
+              </button>
+              <button id="muteBtn" class="control-btn">
+                <img
+                  id="volumeIcon"
+                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMDAwMCIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0xNjgsMzJWMjI0YTgsOCwwLDAsMS0xMi45MSw2LjMxTDg1LjI1LDE3Nkg0MGExNiwxNiwwLDAsMS0xNi0xNlY5NkExNiwxNiwwLDAsMSw0MCw4MEg4NS4yNWw2OS44NC01NC4zMUE4LDgsMCwwLDEsMTY4LDMyWm0zMiw2NGE4LDgsMCwwLDAtOCw4djQ4YTgsOCwwLDAsMCwxNiwwVjEwNEE4LDgsMCwwLDAsMjAwLDk2Wm0zMi0xNmE4LDgsMCwwLDAtOCw4djgwYTgsOCwwLDAsMCwxNiwwVjg4QTgsOCwwLDAsMCwyMzIsODBaIj48L3BhdGg+PC9zdmc+"
+                  alt="Volume"
+                />
+              </button>
+              <div id="volumePopup" class="volume-popup">
+                <input
+                  type="range"
+                  id="volumeSlider"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  orient="vertical"
+                />
+              </div>
+            </div>
+            <h1 id="epTitle" class="epTitle"></h1>
+            <div class="right-controls">
+              <button id="nextEpisodeBtn" class="control-btn">
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMDAwMCIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMDgsNDBWMjE2YTgsOCwwLDAsMS0xNiwwVjE0Ni43N0w3Mi40MywyMjEuNTVBMTUuOTUsMTUuOTUsMCwwLDEsNDgsMjA4LjEyVjQ3Ljg4QTE1Ljk1LDE1Ljk1LDAsMCwxLDcyLjQzLDM0LjQ1TDE5MiwxMDkuMjNWNDBhOCw4LDAsMCwxLDE2LDBaIj48L3BhdGg+PC9zdmc+"
+                  alt="Next Episode"
+                />
+              </button>
+              <button id="episodesBtn" class="control-btn">
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMDAwMCIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMDAsODhWMjAwYTE2LDE2LDAsMCwxLTE2LDE2SDQwYTE2LDE2LDAsMCwxLTE2LTE2Vjg4QTE2LDE2LDAsMCwxLDQwLDcySDE4NEExNiwxNiwwLDAsMSwyMDAsODhabTE2LTQ4SDY0YTgsOCwwLDAsMCwwLDE2SDIxNlYxNzZhOCw4LDAsMCwwLDE2LDBWNTZBMTYsMTYsMCwwLDAsMjE2LDQwWiI+PC9wYXRoPjwvc3ZnPg=="
+                  alt="Episodes"
+                />
+              </button>
+              <button id="settingsBtn" class="control-btn">
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMDAwMCIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMTYsMTMwLjE2cS4wNi0yLjE2LDAtNC4zMmwxNC45Mi0xOC42NGE4LDgsMCwwLDAsMS40OC03LjA2LDEwNy42LDEwNy42LDAsMCwwLTEwLjg4LTI2LjI1LDgsOCwwLDAsMC02LTMuOTNsLTIzLjcyLTIuNjRxLTEuNDgtMS41Ni0zLTNMMTg2LDQwLjU0YTgsOCwwLDAsMC0zLjk0LTYsMTA3LjI5LDEwNy4yOSwwLDAsMC0yNi4yNS0xMC44Niw4LDgsMCwwLDAtNy4wNiwxLjQ4TDEzMC4xNiw0MFExMjgsNDAsMTI1Ljg0LDQwTDEwNy4yLDI1LjExYTgsOCwwLDAsMC03LjA2LTEuNDhBMTA3LjYsMTA3LjYsMCwwLDAsNzMuODksMzQuNTFhOCw4LDAsMCwwLTMuOTMsNkw2Ny4zMiw2NC4yN3EtMS41NiwxLjQ5LTMsM0w0MC41NCw3MGE4LDgsMCwwLDAtNiwzLjk0LDEwNy43MSwxMDcuNzEsMCwwLDAtMTAuODcsMjYuMjUsOCw4LDAsMCwwLDEuNDksNy4wNkw0MCwxMjUuODRRNDAsMTI4LDQwLDEzMC4xNkwyNS4xMSwxNDguOGE4LDgsMCwwLDAtMS40OCw3LjA2LDEwNy42LDEwNy42LDAsMCwwLDEwLjg4LDI2LjI1LDgsOCwwLDAsMCw2LDMuOTNsMjMuNzIsMi42NHExLjQ5LDEuNTYsMywzTDcwLDIxNS40NmE4LDgsMCwwLDAsMy45NCw2LDEwNy43MSwxMDcuNzEsMCwwLDAsMjYuMjUsMTAuODcsOCw4LDAsMCwwLDcuMDYtMS40OUwxMjUuODQsMjE2cTIuMTYuMDYsNC4zMiwwbDE4LjY0LDE0LjkyYTgsOCwwLDAsMCw3LjA2LDEuNDgsMTA3LjIxLDEwNy4yMSwwLDAsMCwyNi4yNS0xMC44OCw4LDgsMCwwLDAsMy45My02bDIuNjQtMjMuNzJxMS41Ni0xLjQ4LDMtM0wyMTUuNDYsMTg2YTgsOCwwLDAsMCw2LTMuOTQsMTA3LjcxLDEwNy43MSwwLDAsMCwxMC44Ny0yNi4yNSw4LDgsMCwwLDAtMS40OS03LjA2Wk0xMjgsMTY4YTQwLDQwLDAsMSwxLDQwLTQwQTQwLDQwLDAsMCwxLDEyOCwxNjhaIj48L3BhdGg+PC9zdmc+"
+                  alt="Languages"
+                />
+              </button>
+              <button id="fullscreenBtn" class="control-btn">
+                <img
+                  id="fullscreenIcon"
+                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMDAwMCIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0xMDkuNjYsMTQ2LjM0YTgsOCwwLDAsMSwwLDExLjMyTDgzLjMxLDE4NGwxOC4zNSwxOC4zNEE4LDgsMCwwLDEsOTYsMjE2SDQ4YTgsOCwwLDAsMS04LThWMTYwYTgsOCwwLDAsMSwxMy42Ni01LjY2TDcyLDE3Mi42OWwyNi4zNC0yNi4zNUE4LDgsMCwwLDEsMTA5LjY2LDE0Ni4zNFpNODMuMzEsNzJsMTguMzUtMTguMzRBOCw4LDAsMCwwLDk2LDQwSDQ4YTgsOCwwLDAsMC04LDhWOTZhOCw4LDAsMCwwLDEzLjY2LDUuNjZMNzIsODMuMzFsMjYuMzQsMjYuMzVhOCw4LDAsMCwwLDExLjMyLTExLjMyWk0yMDgsNDBIMTYwYTgsOCwwLDAsMC01LjY2LDEzLjY2TDE3Mi42OSw3MiwxNDYuMzQsOTguMzRhOCw4LDAsMCwwLDExLjMyLDExLjMyTDE4NCw4My4zMWwxOC4zNCwxOC4zNUE4LDgsMCwwLDAsMjE2LDk2VjQ4QTgsOCwwLDAsMCwyMDgsNDBabTMuMDYsMTEyLjYxYTgsOCwwLDAsMC04LjcyLDEuNzNMMTg0LDE3Mi42OWwtMjYuMzQtMjYuMzVhOCw4LDAsMCwwLTExLjMyLDExLjMyTDE3Mi42OSwxODRsLTE4LjM1LDE4LjM0QTgsOCwwLDAsMCwxNjAsMjE2aDQ4YTgsOCwwLDAsMCw4LThWMTYwQTgsOCwwLDAsMCwyMTEuMDYsMTUyLjYxWiI+PC9wYXRoPjwvc3ZnPg=="
+                  alt="Fullscreen"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="settingsPopup">
+          <div class="popup-section">
+            <h3>Language</h3>
+            <div class="popup-buttons" id="langOptionsDiv">
+              <button
+                class="lang-option active-lang"
+                id="subBtn"
+                data-lang="sub"
+              >
+                Sub
+              </button>
+              <button class="lang-option" id="dubBtn" data-lang="dub">
+                Dub
+              </button>
+            </div>
+          </div>
+          <div class="popup-section">
+            <h3>Quality</h3>
+            <div class="popup-buttons" id="qualButtons"></div>
+          </div>
+        </div>
+        <div id="episodesPopup" class="episodes-popup" tabindex="0"></div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
