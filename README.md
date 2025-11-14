@@ -1,7 +1,8 @@
-
 # One Pace Player
 
 A custom web player built for watching [One Pace](https://onepace.net/) without relying on PixelDrain’s viewer. This project offers a clean layout, smooth controls, and a polished interface. Everything is packaged inside a single HTML file that contains all CSS and JavaScript, which makes it simple to use and easy to download.
+
+![One Pace Player UI](https://i.imgur.com/rgfZDtn.png)
 
 ## Why this player exists
 
