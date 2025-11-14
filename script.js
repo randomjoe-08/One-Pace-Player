@@ -402,7 +402,7 @@ async function fetchArcEpisodes(arcId, arcName) {
     const res = await fetch(`https://pixeldrain.net/api/list/${arcId}`);
     const data = await res.json();
     if (!data.success) throw new Error("Failed to fetch episodes");
-    episodesPopup.innerHTML = `<div class="arc-header"><button id="backToArcs" class="back-btn"><img src="assets/icons/arrow-left.svg" alt="back-arrow" /></button><h2>${arcName} (${data.file_count} eps)</h2></div>`;
+    episodesPopup.innerHTML = `<div class="arc-header"><button id="backToArcs" class="back-btn"><?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="3" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ffffff"><path d="M21 12L3 12M3 12L11.5 3.5M3 12L11.5 20.5" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><h2>${arcName} (${data.file_count} eps)</h2></div>`;
     document
       .getElementById("backToArcs")
       .addEventListener("click", populateArcs);
@@ -553,3 +553,4 @@ function showOverlay(type, position = "center") {
     overlayIcon.classList.remove("show");
   }, 250);
 }
+
